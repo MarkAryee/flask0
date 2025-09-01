@@ -321,111 +321,6 @@ def predict_diabetes(data: PatientData5):
     #return explain_prediction(model5, scaler5, input_df, X, "Diabetes", 0.5495, 0.5495)
     return explain_prediction_tabnet(model5, scaler5, input_df, X, "Diabetes", 0.5495, 0.5495)
 
-    
-    '''
-    input_scaled = scaler5.transform(input_df)    # Scale features
-
-    # proba = model5.predict_proba(input_scaled)[:, 1][0] # Predict probability
-    proba = model5.predict(input_scaled).flatten()[0]
-    
-    pred = model5.predict(input_scaled)[0]    # Predict class
-
-    return {
-        "ncd_probability": float(proba),
-        "ncd_prediction": int(pred)
-    }
-    '''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-'''
-# -------------------- Classifier --------------------
-from transformers import pipeline
-classifier = pipeline(
-    "zero-shot-classification",
-    model="./models--MoritzLaurer--DeBERTa-v3-base-mnli-fever-anli/snapshots/6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
-    tokenizer="./models--MoritzLaurer--DeBERTa-v3-base-mnli-fever-anli/snapshots/6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
-    framework="pt",
-)
-
-
-#----------------- Map definitions----------------------------------------
-# -------------------- Helpers --------------------
-def extract_number(text):
-    m = re.findall(r"\d+(?:\.\d+)?", text)
-    return float(m[0]) if m else None
-
-def extract_boolean(text):  # yes → 1, no → 0
-    text = text.lower()
-    if "yes" in text:
-        return 1
-    if "no" in text:
-        return 0
-    return None
-
-def extract_gender(text):  # female → 1, male → 0
-    text = text.lower()
-    if "female" in text:
-        return 1
-    if "male" in text:
-        return 0
-    return None
-
-def classify(text, labels):
-    if not text or not labels:
-        return None
-    result = classifier(text, candidate_labels=labels)
-    return labels[result["scores"].index(max(result["scores"]))]
-    
- 
-    
-#from nlp_helpers import extract_number, extract_boolean, extract_gender, classify
-
-
-
-
-
-
-'''
-
 
 
 # -------------------- API Route --------------------
@@ -440,7 +335,8 @@ async def parse_speech(request: Request):
 
    
 
-
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
 
 
 
