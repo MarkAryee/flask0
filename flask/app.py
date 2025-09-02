@@ -1,7 +1,8 @@
 from flask import Flask, jsonify, request, render_template_string
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)  # replaces FastAPI CORS middleware
 # A simple in-memory structure to store tasks
 tasks = []
 
