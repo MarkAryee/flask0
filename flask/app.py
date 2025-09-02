@@ -48,7 +48,7 @@ def delete_task(index):
 
 
 # -------------------- API Route --------------------
-@app.post("/parse_speech", methods=['POST'])
+@app.route("/parse_speech", methods=['POST'])
 async def parse_speech(request: Request):
     from helpers_nlp import parse_speech
     return await parse_speech(request)
