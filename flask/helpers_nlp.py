@@ -1,7 +1,7 @@
 # nlp_helpers.py
 import re
 from transformers import pipeline
-
+'''
 # Load HuggingFace pipeline (PyTorch backend)
 classifier = pipeline(
     "zero-shot-classification",
@@ -9,7 +9,15 @@ classifier = pipeline(
     tokenizer="./models--MoritzLaurer--DeBERTa-v3-base-mnli-fever-anli/snapshots/6f5cf0a2b59cabb106aca4c287eed12e357e90eb",
     framework="pt",
 )
+'''
 
+# Load HuggingFace pipeline (PyTorch backend) from online source
+classifier = pipeline(
+    "zero-shot-classification",
+    model="MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
+    tokenizer="MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
+    framework="pt",
+)
 # -------------------- Helpers --------------------
 def extract_number(text):
     m = re.findall(r"\d+(?:\.\d+)?", text)
@@ -517,6 +525,7 @@ def age_to_category(age):
     else: return None  # for ages below 18 or invalid input
 
  # -------------------- API Route --------------------
+
 
 
 
