@@ -1,47 +1,49 @@
-import os
-import uvicorn
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from flask import Flask, jsonify, request, render_template_string
 
-app = FastAPI(title="My FastAPI Demo", version="1.0.0")
+app = Flask(__name__)
 
-@app.get("/", response_class=HTMLResponse)
+# A simple in-memory structure to store tasks
+tasks = []
+
+@app.route('/', methods=['GET'])
 def home():
-    return """
-    <html>
-        <head><title>FastAPI Demo</title></head>
-        <body style="font-family: Arial; text-align: center; margin-top: 50px;">
-            <h1>🚀 FastAPI is running!</h1>
-            <p>Welcome to my demo app.</p>
-            <ul style="list-style:none;">
-                <li><a href="/">🏠 Home</a></li>
-                <li><a href="/hello?name=Mark">👋 /hello</a></li>
-                <li><a href="/routes">📜 /routes</a></li>
-                <li><a href="/docs">📖 /docs</a></li>
-            </ul>
-        </body>
-    </html>
-    """
+    # Display existing tasks and a form to add a new task
+    html = '''
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <form action="/add" method="POST">
+        <input type="text" name="task" placeholder="Enter a new task">
+        <input type="submit" value="Add Task">
+    </form>
+    <ul>
+        {% for task in tasks %}
+        <li>{{ task }} <a href="/delete/{{ loop.index0 }}">x</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+'''
+    return render_template_string(html, tasks=tasks)
 
-@app.get("/hello")
-def say_hello(name: str = "World"):
-    return {"message": f"Hello, {name}!"}
+@app.route('/add', methods=['POST'])
+def add_task():
+    # Add a new task from the form data
+    task = request.form.get('task')
+    if task:
+        tasks.append(task)
+    return home()
 
-@app.get("/routes")
-def list_routes():
-    return {
-        "available_routes": [
-            {"path": route.path, "name": route.name, "methods": list(route.methods)}
-            for route in app.routes
-        ]
-    }
+@app.route('/delete/<int:index>', methods=['GET'])
+def delete_task(index):
+    # Delete a task based on its index
+    if index < len(tasks):
+        tasks.pop(index)
+    return home()
 
-if __name__ == "__main__":
-    # Render will set $PORT, fallback to 8000 locally
-    port = int(os.environ.get("PORT", 8000))
-    uvicorn.run(
-        "app:app",       # filename:app_instance
-        host="0.0.0.0",
-        port=port,
-        reload=True       # enable reload locally for dev
-    )
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
