@@ -46,14 +46,18 @@ def delete_task(index):
     return home()
 
 
-
+from flask import request, jsonify
 # -------------------- API Route --------------------
-@app.route("/parse_speech", methods=['POST'])
-async def parse_speech(request: Request):
-    from helpers_nlp import parse_speech
-    return await parse_speech(request)
+@app.route("/parse_speech", methods=["POST"])
+def parse_speech_route():
+    try:
+        # Assuming parse_speech takes request.json as input
+        data = request.get_json()
+        result = parse_speech(data)
+        return jsonify(result), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-   
 
 
 
