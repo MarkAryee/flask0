@@ -50,6 +50,7 @@ from flask import request, jsonify
 # -------------------- API Route --------------------
 @app.route("/parse_speech", methods=["POST"])
 def parse_speech_route():
+    from helpers_nlp import parse_speech
     try:
         # Assuming parse_speech takes request.json as input
         data = request.get_json()
