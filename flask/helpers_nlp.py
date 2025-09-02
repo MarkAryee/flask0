@@ -345,7 +345,7 @@ categorical_maps = {
     #------------new dataset-------------------------
     
      "Rural_or_Urban": {"Rural": 0, "Urban": 1},
-    , "Air_Pollution_Exposure": {"Low": 0, "Medium": 1, "High": 2},
+     "Air_Pollution_Exposure": {"Low": 0, "Medium": 1, "High": 2},
     , "Socioeconomic_Status": {"Low": 0, "Middle": 1, "High": 2},
     , "Healthcare_Access": {"Poor": 0, "Limited": 1, "Good": 2},
     , "Smoking_Status": {"Non-Smoker": 0, "Smoker": 1, "Former Smoker": 2},
@@ -517,6 +517,7 @@ def age_to_category(age):
     else: return None  # for ages below 18 or invalid input
 
  # -------------------- API Route --------------------
+
 
 
 
