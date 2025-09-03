@@ -1,11 +1,10 @@
-
-
 {
-  "build": {
-    "builder": "DOCKERFILE",
+    "$schema": "https://railway.app/railway.schema.json",
+    "build": {
+     "builder": "DOCKERFILE",
     "dockerfilePath": "./flask/Dockerfile",
-  },
-  "deploy": {
-    "startCommand": "uvicorn main:app --host 0.0.0.0 --port 8080",
+    }, 
+    "deploy": {
+      "startCommand": "uvicorn main:app --host 0.0.0.0 --port 8080"
+    }
   }
-}
