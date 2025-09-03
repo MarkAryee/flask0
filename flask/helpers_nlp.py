@@ -12,17 +12,18 @@ classifier = pipeline(
 '''
 
 # Load HuggingFace pipeline (PyTorch backend) from online source
-from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import pipeline, AutoTokenizer, TFAutoModelForSequenceClassification
 
 model_name = "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli"
+
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForSequenceClassification.from_pretrained(model_name)
+model = TFAutoModelForSequenceClassification.from_pretrained(model_name)
 
 classifier = pipeline(
     "zero-shot-classification",
     model=model,
     tokenizer=tokenizer,
-    framework="pt"
+    framework="tf"   # 👈 important
 )
 # -------------------- Helpers --------------------
 def extract_number(text):
@@ -531,6 +532,7 @@ def age_to_category(age):
     else: return None  # for ages below 18 or invalid input
 
  # -------------------- API Route --------------------
+
 
 
 
