@@ -7,5 +7,5 @@ numpy==1.26.4
 pandas==2.2.3
 
 transformers
-
-tensorflow-cpu==2.18.0
+tf-keras
+tensorflow-cpu
