@@ -17,7 +17,12 @@ COPY . /app
 
 # Install any needed packages specified in requirements.txt
 COPY requirements.txt /app/
+
+RUN pip install --no-cache-dir torch==2.2.2+cpu torchvision==0.17.2+cpu torchaudio==2.2.2+cpu --index-url https://download.pytorch.org/whl/cpu
+
 RUN pip install --no-cache-dir -r requirements.txt
+
+
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
