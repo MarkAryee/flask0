@@ -12,6 +12,7 @@ classifier = pipeline(
 '''
 
 
+'''
 # Load HuggingFace pipeline (PyTorch backend) from online source
 from transformers import pipeline, AutoTokenizer, TFAutoModelForSequenceClassification
 
@@ -31,7 +32,8 @@ classifier = pipeline(
 
 from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
 
-model_name = "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli"
+#model_name = "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli"
+model_name = "./models--typeform--distilbert-base-uncased-mnli/snapshots/cfa538a0fddbbd978fefe8966c1aeff7ad409c90"
 
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSequenceClassification.from_pretrained(model_name)
@@ -43,7 +45,6 @@ classifier = pipeline(
     framework="pt"
 )
 
-'''
 
 
 # -------------------- Helpers --------------------
@@ -553,6 +554,7 @@ def age_to_category(age):
     else: return None  # for ages below 18 or invalid input
 
  # -------------------- API Route --------------------
+
 
 
 
