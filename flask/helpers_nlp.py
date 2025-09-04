@@ -486,6 +486,7 @@ categorical_maps = {
 }
 
 
+from flask import request, jsonify
 
 async def parse_speech(request: Request):
     data = await request.json()
@@ -549,6 +550,7 @@ def age_to_category(age):
     else: return None  # for ages below 18 or invalid input
 
  # -------------------- API Route --------------------
+
 
 
 
