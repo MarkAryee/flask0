@@ -486,12 +486,7 @@ categorical_maps = {
 }
 
 
-from fastapi import FastAPI
-appTwo = FastAPI()
 
-from fastapi import Request
-
-@appTwo.post("/parse_speech")
 async def parse_speech(request: Request):
     data = await request.json()
     spoken_text = data.get("text", "")
@@ -554,6 +549,7 @@ def age_to_category(age):
     else: return None  # for ages below 18 or invalid input
 
  # -------------------- API Route --------------------
+
 
 
 
