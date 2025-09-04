@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, request, render_template_string
 from flask_cors import CORS
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 app = Flask(__name__)
 CORS(app)  # replaces FastAPI CORS middleware
